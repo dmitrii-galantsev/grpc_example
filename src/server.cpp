@@ -1,6 +1,7 @@
 #include <iostream>
 #include <memory>
 #include <string>
+#include <thread>
 #include <grpcpp/grpcpp.h>
 #include "text_update.grpc.pb.h"
 
@@ -18,18 +19,18 @@ public:
     Status StreamTextUpdates(ServerContext* context, const TextUpdateRequest* request,
                              ServerWriter<TextUpdateResponse>* writer) override {
         std::cout << "Received request from client: " << request->client_id() << std::endl;
-        
+
         for (int i = 0; i < 5; ++i) {
             TextUpdateResponse response;
             response.set_updated_text("Update " + std::to_string(i + 1) + " for " + request->client_id());
-            
+
             if (!writer->Write(response)) {
                 return Status::CANCELLED;
             }
-            
+
             std::this_thread::sleep_for(std::chrono::seconds(1));
         }
-        
+
         return Status::OK;
     }
 };
