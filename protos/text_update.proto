@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package text_update;
+
+service TextUpdateService {
+  rpc StreamTextUpdates (TextUpdateRequest) returns (stream TextUpdateResponse) {}
+}
+
+message TextUpdateRequest {
+  string client_id = 1;
+}
+
+message TextUpdateResponse {
+  string updated_text = 1;
+}
