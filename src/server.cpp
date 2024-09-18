@@ -26,7 +26,8 @@ class TextUpdateServiceImpl final : public TextUpdateService::Service {
 
     for (int i = 0; i < 5; ++i) {
       TextUpdateResponse response;
-      response.set_updated_text("Update " + std::to_string(i + 1) + " for " + request->client_id());
+      response.set_updated_text("Update " + std::to_string(i + 1) + " for " + std::to_string(request->client_id()));
+      response.set_updated_number(request->client_id() * 1000);
 
       if (!writer->Write(response)) {
         return Status::CANCELLED;

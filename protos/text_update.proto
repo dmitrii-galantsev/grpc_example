@@ -7,9 +7,10 @@ service TextUpdateService {
 }
 
 message TextUpdateRequest {
-  string client_id = 1;
+  uint32 client_id = 1;
 }
 
 message TextUpdateResponse {
   string updated_text = 1;
+  uint32 updated_number = 2;
 }
